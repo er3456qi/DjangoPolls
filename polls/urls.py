@@ -1,6 +1,10 @@
 from django.conf.urls import url
 from . import views
 
+# set url namespace to avoid {% url %} template tag get confused
+# without namespace: {% url 'detail' %}, with namespace {% url 'polls:detail' %}
+app_name = 'polls'
+
 """
     The url() function is passed four arguments,
     two required: regex and view(When Django finds a regular expression match,
