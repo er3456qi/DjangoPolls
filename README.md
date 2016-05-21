@@ -1,2 +1,2 @@
 # DjangoTutorial
-Django tutorial code
+[Django tutorial](https://docs.djangoproject.com/en/1.9/intro/tutorial01/) code
