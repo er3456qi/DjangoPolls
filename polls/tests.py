@@ -9,7 +9,7 @@ from .models import Question
 
 class QuestionMethodTests(TestCase):
 
-    def test_was_published_rectendly_with_future_question(self):
+    def test_was_published_recently_with_future_question(self):
         """
         was_published_recently() should return False for questions
         whose pub_date is in the future.
@@ -27,7 +27,7 @@ class QuestionMethodTests(TestCase):
         old_question = Question(pub_date=time)
         self.assertFalse(old_question.was_published_recently())
 
-    def test_was_published_rectendly_with_rectent_question(self):
+    def test_was_published_recently_with_rectent_question(self):
         """
         was_published_recently() should return True for questions
         whose pub_date is within the last day.
