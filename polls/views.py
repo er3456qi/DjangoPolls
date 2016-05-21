@@ -19,9 +19,9 @@ from .models import Question, Choice
 
 class IndexView(generic.ListView):
     """
-     The template_name attribute is used to tell Django.
-     to use a specific template name instead of the auto generated default template name.
-     because by default, generic.ListView use a template called '<app name>/<model name>_list.html'
+    The template_name attribute is used to tell Django.
+    to use a specific template name instead of the auto generated default template name.
+    because by default, generic.ListView use a template called '<app name>/<model name>_list.html'
     """
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
@@ -43,19 +43,26 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     """
-        For DetailView the question variable is provided automatically – since we’re using a Django model (Question),
-        Django is able to determine an appropriate name for the context variable.
-        However, for ListView, the automatically generated context variable is question_list.
-        To override this we provide the context_object_name attribute,
-        specifying that we want to use latest_question_list instead.
+    For DetailView the question variable is provided automatically – since we’re using a Django model (Question),
+    Django is able to determine an appropriate name for the context variable.
+    However, for ListView, the automatically generated context variable is question_list.
+    To override this we provide the context_object_name attribute,
+    specifying that we want to use latest_question_list instead.
     """
     model = Question
     template_name = 'polls/detail.html'
+
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 # def results(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, 'polls/results.html', {'question': question})
+
 
 class ResultsView(generic.DetailView):
     model = Question
